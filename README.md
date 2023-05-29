@@ -12,11 +12,9 @@
 
 ## Step 2: Installing the WooCommerce Plugin on your Wordpress Site.
 1. Click the  [Coinpal plug](https://github.com/CoinpalGroup/plug_wordpress/archive/refs/heads/main.zip)  Download Coinpal WooCommerce Payment Plug
-2. Login to your WordPress Admin Dashboard.
-
-3. Click on the "Plugins" section, and press "Add New".
-4. At the Top Left of the Page Click the “Upload Plugin” button.
-5. Activate the Coinpal WooCommerce Gateway
+2. Go to your WordPress admin area and click on Plugins -> Install Plugins -> Upload Plugins
+![](./img/upload-plug.png)
+3. Activate the Coinpal WooCommerce Gateway
 
 Go to the WooCommerce Section, click Settings.
 
