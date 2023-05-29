@@ -1,0 +1,1 @@
+# Coinpal Wordpress Document
