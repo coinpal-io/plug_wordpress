@@ -8,11 +8,12 @@
 2. Follow the Dashboard guidelines to fill in the relevant information
 
 3. Click the 'Integration' button in the lower left corner to get the corresponding Merchant Id and Secret Key
-
+![](./img/api-key.png)
 
 ## Step 2: Installing the WooCommerce Plugin on your Wordpress Site.
-1. Click the  Coinpal plug  Download Coinpal WooCommerce Payment Plug
+1. Click the  [Coinpal plug](https://github.com/CoinpalGroup/plug_wordpress/archive/refs/heads/main.zip)  Download Coinpal WooCommerce Payment Plug
 2. Login to your WordPress Admin Dashboard.
+
 3. Click on the "Plugins" section, and press "Add New".
 4. At the Top Left of the Page Click the “Upload Plugin” button.
 5. Activate the Coinpal WooCommerce Gateway
