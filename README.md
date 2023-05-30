@@ -37,11 +37,11 @@ Add Test Item to Shopping Cart and View Cart.
 Proceed to Checkout
 
 Select Coinpal as the Payment Method.
-![](./img/wp-checkout.png)
 
 Click Place Order
 
 Click the “Pay Now with Coinpal” button.
+![](./img/wp-checkout.png)
 
 Verify all of the Wallet Addresses and Order info, and make sure the Validation Tests all have a Green Check Mark.
 
