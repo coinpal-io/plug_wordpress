@@ -1,6 +1,6 @@
 # WooCommerce Coinpal Checkout Installation
 
-## Step 1: Login Coinpal Admin Dashboard get Merchant Key and Secret Key.
+## Step 1: Login Coinpal Admin Dashboard get Merchant No and Secret Key.
 1. [Register](https://portal.coinpal.io/#/admin/register)/[login](https://portal.coinpal.io/#/admin/login) and go to Coinpal's Admin Dashboard 
 
 ![](./img/register.png)
