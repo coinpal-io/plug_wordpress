@@ -37,7 +37,7 @@ Add Test Item to Shopping Cart and View Cart.
 Proceed to Checkout
 
 Select Coinpal as the Payment Method.
-![](./img/wp-check.png)
+![](./img/wp-checkout.png)
 
 Click Place Order
 
