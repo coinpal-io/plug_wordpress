@@ -15,6 +15,9 @@
 2. Go to your WordPress admin area and click on Plugins -> Install Plugins -> Upload Plugins
 ![](./img/upload-plug.png)
 3. Activate the Coinpal WooCommerce Gateway
+![](./img/wp-coinpal-payments.png)
+![](./img/wp-coinpal-setting.png)
+
 
 Go to the WooCommerce Section, click Settings.
 
