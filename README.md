@@ -54,13 +54,13 @@ Login to your Wordpress Admin Dashboard.
 
 Go to the WooCommerce Section and Click Orders.
 
-You will see the Test Orders Marked as “On Hold”
+You will see the Test Orders Marked as “Paid”
 
 Verify the Coins are in your chosen Coinpal Wallet (The addresses you input in Step #1.)
 
 You may also use a Block Explorer to verify if the transaction was processed.
 
-Go to the order on WooCommerce, and in the Status section, mark it as "Processing", or "Completed" to notify the customer their order is being processed.
+After the verification of the above steps is completed, it means that the connection with Coinpal is successful.
 
 
 
