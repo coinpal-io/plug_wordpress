@@ -1,6 +1,6 @@
 # WooCommerce Coinpal Checkout Installation
 
-## Step 1: Login Coinpal Admin Dashboard get Merchant No and Secret Key.
+## Step 1: Log in to the Coinpal Admin Dashboard to get the Merchant Number and Secret Key.
 1. [Register](https://portal.coinpal.io/#/admin/register)/[login](https://portal.coinpal.io/#/admin/login) and go to Coinpal's Admin Dashboard 
 
 ![](./img/register.png)
@@ -11,13 +11,17 @@
 ![](./img/api-key.png)
 
 ## Step 2: Installing the WooCommerce Plugin on your Wordpress Site.
-1. Click the  [Coinpal plug](https://github.com/CoinpalGroup/plug_wordpress/blob/main/coinpal.zip)  Download Coinpal WooCommerce Payment Plug
-2. Go to your WordPress admin area and click on Plugins -> Install Plugins -> Upload Plugins
-![](./img/upload-plug.png)
-3. Activate the Coinpal WooCommerce Gateway
-![](./img/wp-coinpal-payments.png)
-![](./img/wp-coinpal-setting.png)
+1. Click on the [Coinpal plugin](https://github.com/coinpal-io/plug_wordpress/blob/main/coinpal.zip) to download the Coinpal WooCommerce Payment Plug.
 
+2. Navigate to your WordPress admin area and follow this path: Plugins -> Install Plugins -> Upload Plugins
+
+![](./img/upload-plug.png)
+
+3. Activate the Coinpal WooCommerce Gateway
+
+![](./img/wp-coinpal-payments.png)
+
+![](./img/wp-coinpal-setting.png)
 
 Go to the WooCommerce Section, click Settings.
 
@@ -32,7 +36,7 @@ Click Save Changes.
 
 To confirm your Integration is properly working create a test order:
 
-Add Test Item to Shopping Cart and View Cart.
+Add a test item to your shopping cart and view the cart.
 
 Proceed to Checkout
 
@@ -40,7 +44,7 @@ Select Coinpal as the Payment Method.
 
 Click Place Order
 
-Click the “Pay Now with Coinpal” button.
+Click the “Continue to Payment” button.
 ![](./img/wp-checkout.png)
 
 Verify all of the Wallet Addresses and Order info, and make sure the Validation Tests all have a Green Check Mark.
@@ -55,9 +59,9 @@ Login to your Wordpress Admin Dashboard.
 
 Go to the WooCommerce Section and Click Orders.
 
-You will see the Test Orders Marked as “Paid”
+You will see the test orders marked as “Paid”.
 
-Verify the Coins are in your chosen Coinpal Wallet (The addresses you input in Step #1.)
+Verify the coins are in your chosen Coinpal Wallet (these are the addresses you input during Step #1).
 
 You may also use a Block Explorer to verify if the transaction was processed.
 
