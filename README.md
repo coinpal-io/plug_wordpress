@@ -17,15 +17,15 @@
 
 ![](./img/upload-plug.png)
 
-3. Activate the Coinpal WooCommerce Gateway
+3.  Activate the Coinpal WooCommerce Gateway
 
-Go to the WooCommerce Section, click Settings.
-
-Press the Payments Tab at the top, Enable Coinpal, and press Manage.
-
-Copy and Paste all of the Settings you generated in your Coinpal Dashboard on Step #1.
-
-Click Save Changes.
+    Go to the WooCommerce Section, click Settings.
+    
+    Press the Payments Tab at the top, Enable Coinpal, and press Manage.
+    
+    Copy and Paste all of the Settings you generated in your Coinpal Dashboard on Step #1.
+    
+    Click Save Changes.
 
 ![](./img/wp-coinpal-payments.png)
 
