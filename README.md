@@ -19,10 +19,6 @@
 
 3. Activate the Coinpal WooCommerce Gateway
 
-![](./img/wp-coinpal-payments.png)
-
-![](./img/wp-coinpal-setting.png)
-
 Go to the WooCommerce Section, click Settings.
 
 Press the Payments Tab at the top, Enable Coinpal, and press Manage.
@@ -30,6 +26,10 @@ Press the Payments Tab at the top, Enable Coinpal, and press Manage.
 Copy and Paste all of the Settings you generated in your Coinpal Dashboard on Step #1.
 
 Click Save Changes.
+
+![](./img/wp-coinpal-payments.png)
+
+![](./img/wp-coinpal-setting.png)
 
 
 ## Step 3: Testing your Coinpal WooCommerce Integration.
@@ -45,13 +45,12 @@ Select Coinpal as the Payment Method.
 Click Place Order
 
 Click the “Continue to Payment” button.
-![](./img/wp-checkout.png)
 
 Verify all of the Wallet Addresses and Order info, and make sure the Validation Tests all have a Green Check Mark.
 
 If you like you can now proceed to making a test payment.
 
-
+![](./img/wp-checkout.png)
 
 ## Step 4: Marking a Payment as Received on WooCommerce.
 
@@ -61,7 +60,7 @@ Go to the WooCommerce Section and Click Orders.
 
 You will see the test orders marked as “Paid”.
 
-Verify the coins are in your chosen Coinpal Wallet (these are the addresses you input during Step #1).
+Check whether coins are settled to the CoinPal wallet.
 
 You may also use a Block Explorer to verify if the transaction was processed.
 
