@@ -49,14 +49,14 @@ final class CoinpalGatewayBlock extends AbstractPaymentMethodType {
 	public function get_payment_method_script_handles() {
 
 		$script_path       = 'assets/blocks/frontend/blocks.js';
-		$script_asset_path = CPWC_PLUGIN_DIR_PATH . '/assets/blocks/frontend/blocks.asset.php';
+		$script_asset_path = COINPAL_CPWC_PLUGIN_DIR_PATH . '/assets/blocks/frontend/blocks.asset.php';
 		$script_asset      = file_exists( $script_asset_path )
 			? require( $script_asset_path )
 			: array(
 				'dependencies' => array(),
-				'version'      => CPWC_VERSION
+				'version'      => COINPAL_CPWC_VERSION
 			);
-		$script_url        = CPWC_PLUGIN_URL . $script_path;
+		$script_url        = COINPAL_CPWC_PLUGIN_URL . $script_path;
 
 		wp_register_script(
 			'coinpal-checkout-block',

@@ -58,30 +58,9 @@ class WC_Gateway_Coinpal_Notify_Handler extends WC_Gateway_Coinpal_Response {
 		$REQ_INVOICE=substr($REQ_INVOICE,3);
 		if ( ! empty($REQ_INVOICE) && ( $order = $this->get_coinpal_order($REQ_INVOICE,$REQ_INVOICE) ) ) {
 
-// 			// Lowercase returned variables
-// 			$posted['payment_status'] = strtolower( $posted['payment_status'] );
-
-// 			// Sandbox fix
-// 			if ( isset( $posted['test_Notify'] ) && 1 == $posted['test_Notify'] && 'pending' == $posted['payment_status'] ) {
-// 				$posted['payment_status'] = 'completed';
-// 			}
-
-			/*if ($posted['PGW_CURRENCY'] == $posted['BIL_CURRENCY'] && $order->total != $posted['PGW_PRICE']) {
-				$comment = "order:".$order->get_id()." grandTotal=".$order->total." , no equal to PGW_PRICE=:".$posted['PGW_PRICE'];
-				WC_Gateway_Coinpal::log($comment);
-				die ($comment);
-			}*/
-			
 			WC_Gateway_Coinpal::log( "Found order #" .$order->get_id()." s:".$REQ_INVOICE."  notify:".json_encode($posted));
 			
 			$this->validate_amount_currency( $order, $posted );
-
-//			if (!$this->isCoinpal($order->payment_method)) {
-//				WC_Gateway_Coinpal::log("#" . $order->get_id()." payment method changed");
-//				die ("payment method changed");
-//			}
-			
-			
 
 			if ( method_exists( __CLASS__, "payment_status_" . $posted["status"] ) ) {
 				call_user_func( array( __CLASS__, "payment_status_" . $posted["status"] ), $order, $posted );
@@ -135,7 +114,6 @@ class WC_Gateway_Coinpal_Notify_Handler extends WC_Gateway_Coinpal_Response {
 	
 	// 验证 付款结果/PSN 提交的REQ_SIGN 是否合法
 	public function validatePSNSIGN($param,$check_array){
-		// REQ_SIGN = SHA256 ( SECRET_KEY + REQ_TIMES + REQ_EMAIL + CUS_EMAIL + TNS_GCID + BIL_STATUS + BIL_METHOD + PGW_PRICE + PGW_CURRENCY )
 		$sign = hash("sha256",
 			$check_array["secretKey"].
 			$param['requestId'].
@@ -173,32 +151,6 @@ class WC_Gateway_Coinpal_Notify_Handler extends WC_Gateway_Coinpal_Response {
 		if (true == $error) {
 			exit;
 		}
-		
-		
-		/*if ($order_currency == $currency) {
-			if ($order_amount != $amount) {
-				$error = 1;
-				$error_amount = $amount;
-			}
-		}*/
-		
-		
-		
-		
-		/*
-		if (1 == $error) {
-			WC_Gateway_Coinpal::log( "Payment error: Amounts do not match (gross " . $error_amount . ")" );
-			
-			// Put this order on-hold for manual checking
-			//$order->update_status( "on-hold", sprintf( __( "Validation error: Coinpal amounts do not match (gross %s).", "woocommerce" ), $error_amount ) );
-			//exit;
-		} else if (2 == $error) {
-			WC_Gateway_Coinpal::log( "Payment error: Currencies do not match (sent \"" . $order->get_order_currency() . "\" | returned \"" . $error_currency . "\")" );
-			
-			// Put this order on-hold for manual checking
-			//$order->update_status( "on-hold", sprintf( __( "Validation error: Coinpal currencies do not match (code %s).", "woocommerce" ), $error_currency ) );
-			//exit;
-		}*/
 	}
 
 	/**
@@ -268,11 +220,7 @@ class WC_Gateway_Coinpal_Notify_Handler extends WC_Gateway_Coinpal_Response {
 			WC_Gateway_Coinpal::log( "Aborting, Order #" . $order->get_id() . " is already complete." );
 			exit;
 		}
-		
-		//$this->validate_amount_currency( $order, $posted );
-		//$this->validate_currency( $order, $posted["currency"] );
-		//$this->validate_amount( $order, $posted["amount"] );
-		
+
 		if ( "paid" === $posted["status"] ) {
 			WC_Gateway_Coinpal::log( "#".$order->get_id()." 1" );
 			$this->payment_complete( $order,"", __( "Coinpal Notify payment completed", "woocommerce" ) );
@@ -291,9 +239,7 @@ class WC_Gateway_Coinpal_Notify_Handler extends WC_Gateway_Coinpal_Response {
 			WC_Gateway_Coinpal::log( "Aborting, Order #" . $order->get_id() . " is already complete." );
 			exit;
 		}
-		
-		//$this->validate_amount_currency( $order, $posted );
-		
+
 		if ( "pending" === $posted["status"] ) {
 			$this->payment_on_hold( $order, sprintf( __( "Payment pending", "woocommerce" )) );
 		}

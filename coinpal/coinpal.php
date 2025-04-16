@@ -3,36 +3,36 @@
 Plugin Name: Coinpal Payment Gateway
 Plugin URI: https://github.com/coinpal-io/plug_wordpress
 Description: Integrates your Coinpal payment gateway into your WooCommerce installation.
-Version: 1.6.2
+Version: 1.6.3
 Author: Coinpal Team
 Text Domain: coinpal-payment-gateway2
 Author URI: https://www.coinpal.io
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 */
-add_action('plugins_loaded', 'init_coinpal_gateway', 0);
+add_action('plugins_loaded', 'coinpal_init_gateway', 0);
 
-if ( !defined( 'CPWC_PLUGIN_FILE' ) ) {
-	define( 'CPWC_PLUGIN_FILE', __FILE__ );
+if ( !defined( 'COINPAL_CPWC_PLUGIN_FILE' ) ) {
+	define( 'COINPAL_CPWC_PLUGIN_FILE', __FILE__ );
 }
 
-if ( !defined( 'CPWC_VERSION' ) ) {
-	define( 'CPWC_VERSION', '1.2.4' );
+if ( !defined( 'COINPAL_CPWC_VERSION' ) ) {
+	define( 'COINPAL_CPWC_VERSION', '1.2.4' );
 }
 
-if ( !defined( 'CPWC_PLUGIN_URL' ) ) {
-	define( 'CPWC_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+if ( !defined( 'COINPAL_CPWC_PLUGIN_URL' ) ) {
+	define( 'COINPAL_CPWC_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 }
 
-if ( !defined( 'CPWC_PLUGIN_DIR_PATH' ) ) {
-	define( 'CPWC_PLUGIN_DIR_PATH', plugin_dir_path( __FILE__ ) );
+if ( !defined( 'COINPAL_CPWC_PLUGIN_DIR_PATH' ) ) {
+	define( 'COINPAL_CPWC_PLUGIN_DIR_PATH', plugin_dir_path( __FILE__ ) );
 }
 
-if ( !defined( 'CPWC_PLUGIN_INCLUDE_PATH' ) ) {
-	define( 'CPWC_PLUGIN_INCLUDE_PATH', plugin_dir_path( __FILE__ )."includes/" );
+if ( !defined( 'COINPAL_CPWC_PLUGIN_INCLUDE_PATH' ) ) {
+	define( 'COINPAL_CPWC_PLUGIN_INCLUDE_PATH', plugin_dir_path( __FILE__ )."includes/" );
 }
 
-function init_coinpal_gateway() {
+function coinpal_init_gateway() {
 	if( !class_exists('WC_Payment_Gateway') )  return;
 	
 	require_once('class-wc-gateway-coinpal.php');

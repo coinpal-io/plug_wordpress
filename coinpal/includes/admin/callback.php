@@ -8,8 +8,16 @@ function coinpal_plugin_admin_callback_page() {
         return;
     }
     $coinpal = new WC_Gateway_Coinpal();
-    if (!empty($_GET['key'])) {
-        $keyJson = $coinpal->decrypt($_GET['key']);
+    $cleanedGet = [];
+    foreach ($_GET as $key => $value) {
+        if (is_array($value)) {
+            $cleanedGet[$key] = array_map('sanitize_text_field', $value);
+        } else {
+            $cleanedGet[$key] = sanitize_text_field($value);
+        }
+    }
+    if (!empty($cleanedGet['key'])) {
+        $keyJson = $coinpal->decrypt($cleanedGet['key']);
         $keyDec = json_decode($keyJson, true);
         if (!empty($keyDec)) {
             $options = get_option('woocommerce_coinpal_settings', []);

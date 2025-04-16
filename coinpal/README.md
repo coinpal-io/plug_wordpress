@@ -3,7 +3,7 @@ Contributors: Coinpal Team
 Tags: Crypto，payment
 Requires at least: 4.0
 Tested up to: 6.7
-Stable tag: 1.6.2
+Stable tag: 1.6.3
 License: GPL-2.0-or-later
 
 Official Coinpal module for WordPress WC.
@@ -21,10 +21,7 @@ Coinpal specializes in all-in-one payment solutions with customized products and
 
 == Installation ==
 
-1. Upload the Coinpal folder to the `/wp-content/plugins/` directory, or install the plugin through the WordPress plugins screen directly.
-2. Activate the plugin `Coinpal Payment Gateway for WC` through the 'Plugins' screen in WordPress.
-3. Click `Settings` under `Coinpal Payment Gateway for WC` plugin.
-4. Fill in your `Merchant ID`,  and `Secret Key`, then click `Save changes`.
+Click on Coinpal Payment in the left column, click on Related accounts, and after successful authorization, you can easily associate your Coinpal account with one click
 
 == Screenshots ==
 
@@ -51,6 +48,8 @@ The following services are used:
 - Privacy Policy: https://www.coinpal.io/complaints-policy.html
 
 == Changelog ==
+= 1.6.3 =
+Format code standard
 
 = 1.6.2 =
 Fix order_desc length

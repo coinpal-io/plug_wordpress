@@ -78,9 +78,6 @@ class WC_Gateway_Coinpal_Request {
             'cancelURL'=>(get_permalink(function_exists('woocommerce_get_page_id') ? woocommerce_get_page_id('myaccount') : wc_get_page_id('myaccount'))),
             'notifyURL'=>$this->notify_url,
         );
-		
-		//Return or error prompt
-		//wc_add_notice(__( 'Order Failed or Cancel. If you think this is an error, you can contact our', 'woocommerce' ) , 'notice');
 
 
         $param['sign'] = hash("sha256",
@@ -123,17 +120,14 @@ class WC_Gateway_Coinpal_Request {
 			//Return or error prompt
 			//wc_add_notice(__( 'There was a problem processing your payment and the order did not complete.Possible reasons are:1、Insufficient funds. 2、Verification failed.', 'woocommerce' ) , 'error');
             $message = sprintf(
-                __( 'There was a problem processing your payment and the order did not complete. Possible reasons are: %s', 'woocommerce' ),
+                __( 'There was a problem processing your payment and the order did not complete. Possible reasons are: %s', 'coinpal-payment-gateway2' ),
                 $datas['respMessage']
             );
 
             wc_add_notice( $message, 'error' );
 		}
 		else{
-			
-			
-			//$datas['URL_PAYMENT']=str_replace("https","http",$datas['URL_PAYMENT']); //测试
-			
+
 			$action=$datas['nextStepContent'];
 		}
 		
@@ -226,7 +220,7 @@ class WC_Gateway_Coinpal_Request {
 			$this->delete_line_items();
 
 			$this->add_line_item( $this->get_order_item_names( $order ), 1, number_format( $order->get_total() - round( $order->get_total_shipping() + $order->get_shipping_tax(), 2 ), 2, '.', '' ), $order->get_order_number() );
-			$this->add_line_item( sprintf( __( 'Shipping via %s', 'woocommerce' ), ucwords( $order->get_shipping_method() ) ), 1, number_format( $order->get_total_shipping() + $order->get_shipping_tax(), 2, '.', '' ) );
+			$this->add_line_item( sprintf( __( 'Shipping via %s', 'coinpal-payment-gateway2' ), ucwords( $order->get_shipping_method() ) ), 1, number_format( $order->get_total_shipping() + $order->get_shipping_tax(), 2, '.', '' ) );
 
 			$line_item_args = $this->get_line_items();
 		}
@@ -308,7 +302,7 @@ class WC_Gateway_Coinpal_Request {
 		}
 
 		// Shipping Cost item - Coinpal only allows shipping per item, we want to send shipping for the order
-		if ( $order->get_total_shipping() > 0 && ! $this->add_line_item( sprintf( __( 'Shipping via %s', 'woocommerce' ), $order->get_shipping_method() ), 1, round( $order->get_total_shipping(), 2 ) ) ) {
+		if ( $order->get_total_shipping() > 0 && ! $this->add_line_item( sprintf( __( 'Shipping via %s', 'coinpal-payment-gateway2' ), $order->get_shipping_method() ), 1, round( $order->get_total_shipping(), 2 ) ) ) {
 			return false;
 		}
 

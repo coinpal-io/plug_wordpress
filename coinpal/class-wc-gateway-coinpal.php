@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @class 		WC_Gateway_Coinpal
  * @extends		WC_Payment_Gateway
- * @version		1.6.1
+ * @version		1.6.3
  * @package		WooCommerce/Classes/Payment
  * @author 		Coinpal
  */
@@ -43,9 +43,9 @@ class WC_Gateway_Coinpal extends WC_Payment_Gateway {
 		$this->id                 = strtolower($this->is_channel ? 'coinpal-' . $this->pm : $this->pm);
 		$this->icon               = apply_filters( 'woocommerce_' . $this->pm . '_icon', plugins_url( 'assets/images/Coinpal.png', __FILE__ ) );
 		$this->has_fields         = false;
-		$this->order_button_text  = __( 'Continue to Payment', 'woocommerce' );
+		$this->order_button_text  = __( 'Continue to Payment', 'coinpal-payment-gateway2' );
 		$this->method_title       = ($this->pm_id ? 'Virtual Currency ' : '') . $this->getMethodTitle();
-        $this->method_description = $this->is_channel ? '' : __('Coinpal provides a global payment solution.', 'woocommerce');
+        $this->method_description = $this->is_channel ? '' : __('Coinpal provides a global payment solution.', 'coinpal-payment-gateway2');
 
 		$this->supports           = array(
 			'products'
@@ -108,20 +108,12 @@ class WC_Gateway_Coinpal extends WC_Payment_Gateway {
             $this->curr_title = $coinpal->get_option('curr_title');
 			$this->api_key = $coinpal->get_option('api_key');
 			$this->secret_key = $coinpal->get_option('secret_key');
-//			$this->paymenturl = $coinpal->get_option('paymenturl');
-//			$this->BIL_CC3DS = 'yes' === $coinpal->get_option( 'BIL_CC3DS', 'no' );
-//			$this->BIL_METHOD = $coinpal->get_option('BIL_METHOD');
-//            $this->REQ_APPID = $coinpal->get_option('REQ_APPID');
             $this->testmode = '';
 		    $this->debug = '';
 		} else {
             $this->curr_title = $this->get_option('curr_title');
             $this->api_key = $this->get_option('api_key');
 			$this->secret_key = $this->get_option('secret_key');
-//			$this->paymenturl = $this->get_option('paymenturl');
-//			$this->BIL_CC3DS = 'yes' === $this->get_option( 'BIL_CC3DS', 'no' );
-//			$this->BIL_METHOD = $this->get_option('BIL_METHOD');
-//            $this->REQ_APPID = $this->get_option('REQ_APPID');
             $this->testmode = '';
 			$this->debug = '';
 		}
@@ -138,22 +130,6 @@ class WC_Gateway_Coinpal extends WC_Payment_Gateway {
 	public function get_secretkey() {
 		return $this->secret_key;
 	}
-	
-//	public function get_paymenturl() {
-//		return $this->paymenturl;
-//	}
-//
-//	public function get_BIL_CC3DS() {
-//		return $this->BIL_CC3DS;
-//	}
-//
-//	public function get_BIL_METHOD() {
-//		return $this->BIL_METHOD;
-//	}
-//
-//    public function get_REQ_APPID() {
-//        return $this->REQ_APPID;
-//    }
 
 	/**
 	 * Logging method
@@ -168,14 +144,6 @@ class WC_Gateway_Coinpal extends WC_Payment_Gateway {
 		}
 	}
 
-	/**
-	 * get_icon function.
-	 *
-	 * @return string
-	 */
-// 	public function get_icon() {
-// 		return apply_filters('woocommerce_coinpal_icon',  plugins_url('assets/images/coinpal.png', __FILE__));
-// 	}
 
 	/**
 	 * Check if this gateway is enabled and available in the user's country
@@ -197,7 +165,7 @@ class WC_Gateway_Coinpal extends WC_Payment_Gateway {
 			parent::admin_options();
 		} else {
 			?>
-			<div class="inline error"><p><strong><?php _e( 'Gateway Disabled', 'woocommerce' ); ?></strong>: <?php _e( 'Coinpal does not support your store currency.', 'woocommerce' ); ?></p></div>
+			<div class="inline error"><p><strong><?php esc_html_e( 'Gateway Disabled', 'coinpal-payment-gateway2' ); ?></strong>: <?php esc_html_e( 'Coinpal does not support your store currency.', 'coinpal-payment-gateway2' ); ?></p></div>
 			<?php
 		}
 	}
@@ -211,117 +179,61 @@ class WC_Gateway_Coinpal extends WC_Payment_Gateway {
             $default_description = $this->description;
             if ( empty( $default_description ) ) {
                 /* translators: %s: Payment method title */
-                $default_description = sprintf( __( 'Pay via %s', 'woocommerce' ), $method_title );
+                $default_description = sprintf( __( 'Pay via %s', 'coinpal-payment-gateway2' ), $method_title );
             }
 			$this->form_fields = array(
-					'enabled' => array(
-							'title'   => __( 'Enable/Disable', 'woocommerce' ),
-							'type'    => 'checkbox',
-							'label'   => sprintf( __( 'Enable %s', 'woocommerce' ), $method_title ),
-							'default' => 'no'
-					),
-					'title' => array(
-							'title'       => __( 'Title', 'woocommerce' ),
-							'type'        => 'text',
-							'description' => __( 'This controls the title which the user sees during checkout.', 'woocommerce' ),
-							'default'     => $method_title,
-							'desc_tip'    => true,
-					),
-					'description' => array(
-							'title'       => __( 'Description', 'woocommerce' ),
-							'type'        => 'text',
-							'desc_tip'    => true,
-							'description' => __( 'This controls the description which the user sees during checkout.', 'woocommerce' ),
-							'default'     => $default_description
-					)
+                'enabled' => array(
+                        'title'   => __( 'Enable/Disable', 'coinpal-payment-gateway2' ),
+                        'type'    => 'checkbox',
+                        'label'   => sprintf( __( 'Enable %s', 'coinpal-payment-gateway2' ), $method_title ),
+                        'default' => 'no'
+                ),
+                'title' => array(
+                        'title'       => __( 'Title', 'coinpal-payment-gateway2' ),
+                        'type'        => 'text',
+                        'description' => __( 'This controls the title which the user sees during checkout.', 'coinpal-payment-gateway2' ),
+                        'default'     => $method_title,
+                        'desc_tip'    => true,
+                ),
+                'description' => array(
+                        'title'       => __( 'Description', 'coinpal-payment-gateway2' ),
+                        'type'        => 'text',
+                        'desc_tip'    => true,
+                        'description' => __( 'This controls the description which the user sees during checkout.', 'coinpal-payment-gateway2' ),
+                        'default'     => $default_description
+                )
 			);
 		} else {
 			$this->form_fields = array(
-//					'testmode' => array(
-//							'title'       => __( 'Coinpal Sandbox', 'woocommerce' ),
-//							'type'        => 'checkbox',
-//							'label'       => __( 'Enable Coinpal sandbox', 'woocommerce' ),
-//							'default'     => 'no',
-//							'description' => sprintf( __( 'Coinpal sandbox can be used to test payments. Sign up for a developer account <a href="%s">here</a>.', 'woocommerce' ), 'https://www.coinpal.com' ),
-//					),
-//					'debug' => array(
-//							'title'       => __( 'Debug Log', 'woocommerce' ),
-//							'type'        => 'checkbox',
-//							'label'       => __( 'Enable logging', 'woocommerce' ),
-//							'default'     => 'no',
-//							'description' => sprintf( __( 'Log Coinpal events, inside <code>%s</code>', 'woocommerce' ), wc_get_log_file_path( 'Coinpal' ) )
-//					),
-//					'invoice_prefix' => array(
-//							'title'       => __( 'Invoice Prefix', 'woocommerce' ),
-//							'type'        => 'text',
-//							'description' => __( 'Please enter a prefix for your invoice numbers. If you use your Coinpal account for multiple stores ensure this prefix is unique as Coinpal will not allow orders with the same invoice number.', 'woocommerce' ),
-//							'default'     => 'WC-',
-//							'desc_tip'    => true,
-//					),
-					'api_details' => array(
-							'title'       => __( 'API Credentials', 'woocommerce' ),
-							'type'        => 'title',
-							'description' => __( 'Enter your Coinpal API credentials which you can find at your app settings after logging in at your coinpal account.', 'woocommerce' ),
-					),
-                    'curr_title' => array(
-                        'title'       => __( 'Method Title', 'woocommerce' ),
+                'api_details' => array(
+                        'title'       => __( 'API Credentials', 'coinpal-payment-gateway2' ),
+                        'type'        => 'title',
+                        'description' => __( 'Enter your Coinpal API credentials which you can find at your app settings after logging in at your coinpal account.', 'coinpal-payment-gateway2' ),
+                ),
+                'curr_title' => array(
+                    'title'       => __( 'Method Title', 'coinpal-payment-gateway2' ),
+                    'type'        => 'text',
+                    'description' => __( 'Method Title', 'coinpal-payment-gateway2' ),
+                    'default'     => '',
+                    'desc_tip'    => true,
+                    'placeholder' => __( 'Required', 'coinpal-payment-gateway2' )
+                ),
+                'api_key' => array(
+                        'title'       => __( 'Merchant Id', 'coinpal-payment-gateway2' ),
                         'type'        => 'text',
-                        'description' => __( 'Method Title', 'woocommerce' ),
+                        'description' => __( 'Get your Merchant Id from Coinpal.', 'coinpal-payment-gateway2' ),
                         'default'     => '',
                         'desc_tip'    => true,
-                        'placeholder' => __( 'Required', 'woocommerce' )
-                    ),
-					'api_key' => array(
-							'title'       => __( 'Merchant Id', 'woocommerce' ),
-							'type'        => 'text',
-							'description' => __( 'Get your Merchant Id from Coinpal.', 'woocommerce' ),
-							'default'     => '',
-							'desc_tip'    => true,
-							'placeholder' => __( 'Required', 'woocommerce' )
-					),
-					'secret_key' => array(
-							'title'       => __( 'Secret Key', 'woocommerce' ),
-							'type'        => 'text',
-							'description' => __( 'Get your API credentials from Coinpal.', 'woocommerce' ),
-							'default'     => '',
-							'desc_tip'    => true,
-							'placeholder' => __( 'Required', 'woocommerce' )
-					));
-//                    'REQ_APPID' => array(
-//                        'title'       => __( 'Application ID', 'woocommerce' ),
-//                        'type'        => 'text',
-//                        'description' => __( 'Application ID', 'woocommerce' ),
-//                        'default'     => '',
-//                        'desc_tip'    => true,
-//                        'placeholder' => __( 'Required', 'woocommerce' )
-//                    ),
-//					'paymenturl' => array(
-//							'title'       => __( 'Terminal', 'woocommerce' ),
-//							'type'        => 'select',
-//							'description' => __( 'Terminal', 'woocommerce' ),
-//							'default'     => 'coinpalpayment',
-//							'desc_tip'    => true,
-//							'placeholder' => __( 'Required', 'woocommerce' ),
-//							'options' => array(
-//                                'coinpalpayment' => 'Coinpal Payment',
-//                                'coinpal' => 'Coinpal',
-//                            ),
-//					),
-//					'BIL_CC3DS' => array(
-//							'title'       => __( 'Enable 3DS', 'woocommerce' ),
-//							'type'        => 'checkbox',
-//							'label'       => __( 'Enable 3DS', 'woocommerce' ),
-//							'description' => __( 'Enable 3D－Secure', 'woocommerce' ),
-//							'default'     => 'no'
-//					),
-//					'BIL_METHOD' => array(
-//							'title'       => __( 'Payment Method', 'woocommerce' ),
-//							'type'        => 'text',
-//							'description' => __( 'Method', 'woocommerce' ),
-//							'default'     => 'C01',
-//							'desc_tip'    => true,
-//							'placeholder' => __( 'Required', 'woocommerce' )
-//					));
+                        'placeholder' => __( 'Required', 'coinpal-payment-gateway2' )
+                ),
+                'secret_key' => array(
+                        'title'       => __( 'Secret Key', 'coinpal-payment-gateway2' ),
+                        'type'        => 'text',
+                        'description' => __( 'Get your API credentials from Coinpal.', 'coinpal-payment-gateway2' ),
+                        'default'     => '',
+                        'desc_tip'    => true,
+                        'placeholder' => __( 'Required', 'coinpal-payment-gateway2' )
+                ));
 		}
 	}
 
@@ -367,7 +279,7 @@ class WC_Gateway_Coinpal extends WC_Payment_Gateway {
 	 */
 	function receipt_page( $order ) {
 	
-		echo '<p>' . __('Thank you for your order, please click the button below to pay with Coinpal.', 'coinpal') . '</p>';
+		echo '<p>' . esc_html__('Thank you for your order, please click the button below to pay with Coinpal.', 'coinpal-payment-gateway2'). '</p>';
 	
 		echo $this->generate_coinpal_form( $order );
 	}
@@ -386,7 +298,7 @@ class WC_Gateway_Coinpal extends WC_Payment_Gateway {
         wp_register_script('coinpal-js', plugin_dir_url(__FILE__) . '../assets/js/coinpal.js', array('jquery'), null, true);
 
         // 注入变量（例如 blockUI 提示语）
-        wp_localize_script('coinpal-js', 'coinpal_block_msg', esc_js(__('Thank you for your order. We are now redirecting you to coinpal to make payment.', 'coinpal')));
+        wp_localize_script('coinpal-js', 'coinpal_block_msg', esc_js(__('Thank you for your order. We are now redirecting you to coinpal to make payment.', 'coinpal-payment-gateway2')));
 
         // 实际加载脚本
         wp_enqueue_script('coinpal-js');
@@ -397,8 +309,8 @@ class WC_Gateway_Coinpal extends WC_Payment_Gateway {
         return '<form id="coinpalsubmit" name="coinpalsubmit" action="https://www.coinpal.com/" method="post" target="_top">' .
             implode('', $coinpal_args_array) . '
         <div class="payment_buttons">
-            <input type="submit" class="button-alt" id="submit_coinpal_payment_form" value="' . __('Pay via coinpal', 'coinpal') . '" />
-            <a class="button cancel" href="' . esc_url($order->get_cancel_order_url()) . '">' . __('Cancel order &amp; restore cart', 'coinpal') . '</a>
+            <input type="submit" class="button-alt" id="submit_coinpal_payment_form" value="' . __('Pay via coinpal', 'coinpal-payment-gateway2') . '" />
+            <a class="button cancel" href="' . esc_url($order->get_cancel_order_url()) . '">' . __('Cancel order &amp; restore cart', 'coinpal-payment-gateway2') . '</a>
         </div>
     </form>';
 	}
