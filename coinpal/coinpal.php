@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Coinpal Payment Gateway
-Plugin URI: https://github.com/coinpal-io/plug_wordpress
+Plugin URI: https://github.com/coinpal-io/plug_wordpress/tree/update-wp
 Description: Integrates your Coinpal payment gateway into your WooCommerce installation.
 Version: 1.6.3
 Author: Coinpal Team
