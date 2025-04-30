@@ -161,8 +161,8 @@ class WC_Gateway_Coinpal_Notify_Handler extends WC_Gateway_Coinpal_Response {
 		if ( $order->get_order_currency() != $currency ) {
 			WC_Gateway_Coinpal::log( "Payment error: Currencies do not match (sent \"" . $order->get_order_currency() . "\" | returned \"" . $currency . "\")" );
 
-			// Put this order on-hold for manual checking
-			$order->update_status( "on-hold", sprintf( __( "Validation error: Coinpal currencies do not match (code %s).", "woocommerce" ), $currency ) );
+			/* translators: %s is the currency code that caused the validation error. */
+			$order->update_status( "on-hold", sprintf( __( "Validation error: Coinpal currencies do not match (code %s).", "coinpal-payment-gateway2" ), $currency ) );
 			exit;
 		}
 	}
@@ -175,8 +175,8 @@ class WC_Gateway_Coinpal_Notify_Handler extends WC_Gateway_Coinpal_Response {
 		if ( number_format( $order->get_total(), 2, ".", "" ) != number_format( $amount, 2, ".", "" ) ) {
 			WC_Gateway_Coinpal::log( "Payment error: Amounts do not match (gross " . $amount . ")" );
 
-			// Put this order on-hold for manual checking
-			$order->update_status( "on-hold", sprintf( __( "Validation error: Coinpal amounts do not match (gross %s).", "woocommerce" ), $amount ) );
+			/* translators: %s is the currency code that caused the validation error. */
+			$order->update_status( "on-hold", sprintf( __( "Validation error: Coinpal amounts do not match (gross %s).", "coinpal-payment-gateway2" ), $amount ) );
 			exit;
 		}
 	}
@@ -197,7 +197,8 @@ class WC_Gateway_Coinpal_Notify_Handler extends WC_Gateway_Coinpal_Response {
 	 * @param  WC_Order $order
 	 */
 	private function payment_status_unpaid( $order, $posted ) {
-		$order->update_status( "pending", sprintf( __( "Payment %s via Coinpal Notify.", "woocommerce" ), wc_clean( $posted["status"] ) ) );
+		/* translators: %s is the payment status returned from the Coinpal notification. */
+		$order->update_status( "pending", sprintf( __( "Payment %s via Coinpal Notify.", "coinpal-payment-gateway2" ), wc_clean( $posted["status"] ) ) );
 	}
 
 	/**
@@ -205,7 +206,8 @@ class WC_Gateway_Coinpal_Notify_Handler extends WC_Gateway_Coinpal_Response {
 	 * @param  WC_Order $order
 	 */
 	private function payment_status_partial_paid( $order, $posted ) {
-		$order->update_status( "partialpaid", sprintf( __( "Payment %s via Coinpal Notify.", "woocommerce" ), wc_clean( $posted["status"] ) ) );
+		/* translators: %s is the payment status returned from the Coinpal notification. */
+		$order->update_status( "partialpaid", sprintf( __( "Payment %s via Coinpal Notify.", "coinpal-payment-gateway2" ), wc_clean( $posted["status"] ) ) );
 	}
 	
 	/**
@@ -220,10 +222,10 @@ class WC_Gateway_Coinpal_Notify_Handler extends WC_Gateway_Coinpal_Response {
 
 		if ( "paid" === $posted["status"] ) {
 			WC_Gateway_Coinpal::log( "#".$order->get_id()." 1" );
-			$this->payment_complete( $order,"", __( "Coinpal Notify payment completed", "woocommerce" ) );
+			$this->payment_complete( $order,"", __( "Coinpal Notify payment completed", "coinpal-payment-gateway2" ) );
 		} else {
 			WC_Gateway_Coinpal::log( "#".$order->get_id()." 2" );
-			$this->payment_on_hold( $order, sprintf( __( "Payment pending", "woocommerce" )) );
+			$this->payment_on_hold( $order, sprintf( __( "Payment pending", "coinpal-payment-gateway2" )) );
 		}
 	}
 	
@@ -238,7 +240,7 @@ class WC_Gateway_Coinpal_Notify_Handler extends WC_Gateway_Coinpal_Response {
 		}
 
 		if ( "pending" === $posted["status"] ) {
-			$this->payment_on_hold( $order, sprintf( __( "Payment pending", "woocommerce" )) );
+			$this->payment_on_hold( $order, sprintf( __( "Payment pending", "coinpal-payment-gateway2" )) );
 		}
 	}
 	
@@ -247,8 +249,8 @@ class WC_Gateway_Coinpal_Notify_Handler extends WC_Gateway_Coinpal_Response {
 	 * @param  WC_Order $order
 	 */
 	private function payment_status_cancelled( $order, $posted ) {
-		//$this->payment_status_failed( $order, $posted );
-		$order->update_status( "cancelled", sprintf( __( "Payment %s via Coinpal Notify.", "woocommerce" ), wc_clean( $posted["status"] ) ) );
+		/* translators: %s is the payment status returned from the Coinpal notification. */
+		$order->update_status( "cancelled", sprintf( __( "Payment %s via Coinpal Notify.", "coinpal-payment-gateway2" ), wc_clean( $posted["status"] ) ) );
 	}
 	
 	/**
@@ -257,7 +259,8 @@ class WC_Gateway_Coinpal_Notify_Handler extends WC_Gateway_Coinpal_Response {
 	 */
 	private function payment_status_failed( $order, $posted ) {
 		if ($order->has_status( "pending" )) {
-			$order->update_status( "cancelled", sprintf( __( "Payment %s via Coinpal Notify.", "woocommerce" ), wc_clean( $posted["status"] ) ) );
+			/* translators: %s is the payment status returned from the Coinpal notification. */
+			$order->update_status( "cancelled", sprintf( __( "Payment %s via Coinpal Notify.", "coinpal-payment-gateway2" ), wc_clean( $posted["status"] ) ) );
 		}
 	}
 	
@@ -266,12 +269,15 @@ class WC_Gateway_Coinpal_Notify_Handler extends WC_Gateway_Coinpal_Response {
 	 * @param  WC_Order $order
 	 */
 	private function payment_status_refunding( $order, $posted ) {
-		$order->update_status( "processing", sprintf( __( "Payment %s via Coinpal Notify.", "woocommerce" ), strtolower( $posted["status"] ) ) );
-	
-		$this->send_email_notification(
-				sprintf( __( "Payment for order #%s refunding", "woocommerce" ), $order->get_order_number() ),
-				sprintf( __( "Order %s has been marked as processing due to a refunding", "woocommerce" ), $order->get_order_number())
-		);
+		$order->update_status( "processing", sprintf( __( "Payment %s via Coinpal Notify.", "coinpal-payment-gateway2" ), strtolower( $posted["status"] ) ) );
+
+		/* translators: %s is the order number. */
+		$subject = sprintf( __( 'Payment for order #%s refunding', 'coinpal-payment-gateway2' ), $order->get_order_number() );
+
+		/* translators: %s is the order number. */
+		$message = sprintf( __( 'Order %s has been marked as processing due to a refunding', 'coinpal-payment-gateway2' ), $order->get_order_number() );
+
+		$this->send_email_notification( $subject, $message );
 	}
 
 	/**
@@ -279,38 +285,18 @@ class WC_Gateway_Coinpal_Notify_Handler extends WC_Gateway_Coinpal_Response {
 	 * @param  WC_Order $order
 	 */
 	private function payment_status_refunded( $order, $posted ) {
-		$order->update_status( "refunded", sprintf( __( "Payment %s via Coinpal Notify.", "woocommerce" ), strtolower( $posted["status"] ) ) );
 
-		$this->send_email_notification(
-			sprintf( __( "Payment for order #%s refunded", "woocommerce" ), $order->get_order_number() ),
-			sprintf( __( "Order %s has been marked as refunded", "woocommerce" ), $order->get_order_number())
-		);
-	}
-	
-	/**
-	 * Handle a complaint order
-	 * @param  WC_Order $order
-	 */
-	private function payment_status_complaint( $order, $posted ) {
-		$order->update_status( "processing", sprintf( __( "Payment %s via Coinpal Notify.", "woocommerce" ), strtolower( $posted["status"] ) ) );
-	
-		$this->send_email_notification(
-			sprintf( __( "Payment for order #%s complaint", "woocommerce" ), $order->get_order_number() ),
-			sprintf( __( "Order %s has been marked processing due to a complaint", "woocommerce" ), $order->get_order_number())
-		);
-	}
+		/* translators: %s is the payment status returned from Coinpal Notify. */
+		$note = sprintf( __( 'Payment %s via Coinpal Notify.', 'coinpal-payment-gateway2' ), strtolower( $posted['status'] ) );
+		$order->update_status( 'refunded', $note );
 
-	/**
-	 * Handle a chargeback
-	 * @param  WC_Order $order
-	 */
-	private function payment_status_chargeback( $order, $posted ) {
-		$order->update_status( "on-hold", sprintf( __( "Payment %s via Coinpal Notify.", "woocommerce" ), wc_clean( $posted["status"] ) ) );
+		/* translators: %s is the order number. */
+		$subject = sprintf( __( 'Payment for order #%s refunded', 'coinpal-payment-gateway2' ), $order->get_order_number() );
 
-		$this->send_email_notification(
-			sprintf( __( "Payment for order #%s reversed", "woocommerce" ), $order->get_order_number() ),
-			sprintf( __( "Order %s has been marked on-hold due to a chargeback", "woocommerce" ), $order->get_order_number() )
-		);
+		/* translators: %s is the order number. */
+		$message = sprintf( __( 'Order %s has been marked as refunded', 'coinpal-payment-gateway2' ), $order->get_order_number() );
+
+		$this->send_email_notification( $subject, $message );
 	}
 
 	/**

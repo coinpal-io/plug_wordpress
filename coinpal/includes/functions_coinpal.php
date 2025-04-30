@@ -8,14 +8,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 add_action('init', 'coinpal_register_custom_order_statuses');
 function coinpal_register_custom_order_statuses() {
 
-	register_post_status('wc-partialpaid', array(
-        'label' => __( 'Partial paid', 'coinpal-payment-gateway2' ),
-        'public' => true,
-        'exclude_from_search' => false,
-        'show_in_admin_all_list' => true,
+    /* translators: %s is the number of orders with the 'Partial paid' status. */
+    $partial_paid_label = __( 'Partial paid', 'coinpal-payment-gateway2' );
+    $label_count = _n_noop(
+        'Partial paid <span class="count">(%s)</span>',
+        'Partial paid <span class="count">(%s)</span>',
+        'coinpal-payment-gateway2'
+    );
+
+    register_post_status( 'wc-partialpaid', array(
+        'label'                     => $partial_paid_label,
+        'public'                    => true,
+        'exclude_from_search'       => false,
+        'show_in_admin_all_list'    => true,
         'show_in_admin_status_list' => true,
-        'label_count' => _n_noop('Partial paid <span class="count">(%s)</span>', 'Partial paid <span class="count">(%s)</span>', 'coinpal-payment-gateway2')
-    ));
+        'label_count'               => $label_count,
+    ) );
 
 }
 
@@ -157,22 +165,22 @@ function coinpal_add_payment_info_for_partial( $order ) {
 		$coinpal_field=$order->get_meta('coinpal_field');
 		$coinpal_field=json_decode($coinpal_field,true);
 		if(!empty($coinpal_field)){
-			foreach($coinpal_field as $key=>$item){
+            foreach($coinpal_field as $key=>$item){
                 if($key=="paidAddress" && !empty($item) && is_array($item)){
                     foreach($item as $info){
                         if(empty($info["paidAmount"]) || $info["paidAmount"]==0){
                             continue;
                         }
                         echo '<tr>';
-                        echo '<td class="product-time">'.(empty($info["confirmedTime"])?"-":esc_html(date("Y-m-d H:i:s",$info["confirmedTime"]))).'</td>';
+                        echo '<td class="product-time">'.(empty($info["confirmedTime"])?"-":esc_html(gmdate("Y-m-d H:i:s",$info["confirmedTime"]))).'</td>';
                         echo '<td class="product-quantity">'.(empty($info["paidAmount"])?"-":esc_html($info["paidAmount"])).'</td>';
                         echo '<td class="product-subtotal">'.(empty($info["paidCurrency"])?"-":esc_html($info["paidCurrency"])).'</td>';
                         echo '</td>';
                         echo '</tr>';
                     }
                 }
-			}
-		}
+            }
+        }
 		
 		echo '
 			</tbody>
@@ -181,13 +189,13 @@ function coinpal_add_payment_info_for_partial( $order ) {
 				<tr>';
 					
 		global $wpdb;
-		$table_name = $wpdb->prefix . 'coinpal_notify_log';
+        $table_name = $wpdb->prefix . 'coinpal_notify_log';
         $sql = $wpdb->prepare(
             "SELECT * FROM {$table_name} WHERE order_id = %d AND status LIKE %s",
             $order->get_id(),
-            'partial_paid'
+            '%' . $wpdb->esc_like('partial_paid') . '%'
         );
-		$results = $wpdb->get_results($sql);
+        $results = $wpdb->get_results($sql);
 		foreach ($results as $result) {
 			$info=$result->info;
 			$info=json_decode($info,true);
@@ -198,8 +206,9 @@ function coinpal_add_payment_info_for_partial( $order ) {
 		$order_total = number_format($order->order_total, 8, '.', '');
 		$order_total=$order_total-$balance;
 		$order_total = number_format($order_total, 2, '.', '');
-					
-		echo '<td class="product-balance" colspan="3"><span>Amount unpaid</span>:&nbsp;&nbsp;&nbsp;&nbsp;$'.$order_total.'</td>
+        $escaped_order_total = esc_html( $order_total );
+
+        echo '<td class="product-balance" colspan="3"><span>Amount unpaid</span>:&nbsp;&nbsp;&nbsp;&nbsp;$'.$escaped_order_total.'</td>
 				</tr>
 			</tfoot>
 		</table>';

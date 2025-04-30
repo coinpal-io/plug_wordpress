@@ -117,8 +117,8 @@ class WC_Gateway_Coinpal_Request {
 			$action=(get_permalink(function_exists('woocommerce_get_page_id') ? woocommerce_get_page_id('myaccount') : wc_get_page_id('myaccount')));
 			
 			wc_clear_notices();
-			//Return or error prompt
-			//wc_add_notice(__( 'There was a problem processing your payment and the order did not complete.Possible reasons are:1、Insufficient funds. 2、Verification failed.', 'woocommerce' ) , 'error');
+
+            /* translators: %s is the response message returned from Coinpal, explaining why the payment failed. */
             $message = sprintf(
                 __( 'There was a problem processing your payment and the order did not complete. Possible reasons are: %s', 'coinpal-payment-gateway2' ),
                 $datas['respMessage']
@@ -220,8 +220,15 @@ class WC_Gateway_Coinpal_Request {
 			$this->delete_line_items();
 
 			$this->add_line_item( $this->get_order_item_names( $order ), 1, number_format( $order->get_total() - round( $order->get_total_shipping() + $order->get_shipping_tax(), 2 ), 2, '.', '' ), $order->get_order_number() );
-			$this->add_line_item( sprintf( __( 'Shipping via %s', 'coinpal-payment-gateway2' ), ucwords( $order->get_shipping_method() ) ), 1, number_format( $order->get_total_shipping() + $order->get_shipping_tax(), 2, '.', '' ) );
+            /* translators: %s is the name of the shipping method (e.g., Flat Rate, Free Shipping). */
+            $shipping_label = sprintf(
+                __( 'Shipping via %s', 'coinpal-payment-gateway2' ),
+                ucwords( $order->get_shipping_method() )
+            );
 
+            $shipping_amount = number_format( $order->get_total_shipping() + $order->get_shipping_tax(), 2, '.', '' );
+
+            $this->add_line_item( $shipping_label, 1, $shipping_amount );
 			$line_item_args = $this->get_line_items();
 		}
 
@@ -301,10 +308,20 @@ class WC_Gateway_Coinpal_Request {
 			}
 		}
 
-		// Shipping Cost item - Coinpal only allows shipping per item, we want to send shipping for the order
-		if ( $order->get_total_shipping() > 0 && ! $this->add_line_item( sprintf( __( 'Shipping via %s', 'coinpal-payment-gateway2' ), $order->get_shipping_method() ), 1, round( $order->get_total_shipping(), 2 ) ) ) {
-			return false;
-		}
+        if ( $order->get_total_shipping() > 0 ) {
+
+            /* translators: %s is the name of the shipping method (e.g., Flat Rate, Free Shipping). */
+            $shipping_label = sprintf(
+                __( 'Shipping via %s', 'coinpal-payment-gateway2' ),
+                $order->get_shipping_method()
+            );
+
+            $shipping_amount = round( $order->get_total_shipping(), 2 );
+
+            if ( ! $this->add_line_item( $shipping_label, 1, $shipping_amount ) ) {
+                return false;
+            }
+        }
 
 		// Check for mismatched totals
 		if ( wc_format_decimal( $calculated_total + $order->get_total_tax() + round( $order->get_total_shipping(), 2 ) - round( $order->get_total_discount(), 2 ), 2 ) != wc_format_decimal( $order->get_total(), 2 ) ) {

@@ -2,8 +2,8 @@
 Contributors: Coinpal Team
 Tags: Crypto，payment
 Requires at least: 4.0
-Tested up to: 6.7
-Stable tag: 1.6.4
+Tested up to: 6.8
+Stable tag: 1.6.5
 License: GPL-2.0-or-later
 
 Official Coinpal module for WordPress WC.
@@ -50,13 +50,6 @@ The following services are used:
 - Privacy Policy: https://www.coinpal.io/complaints-policy.html
 
 == Changelog ==
-= 1.6.4 =
+= 1.6.5 =
 Format code standard
-
-= 1.6.3 =
-Format code standard
-
-= 1.6.2 =
-Fix order_desc length
-
 

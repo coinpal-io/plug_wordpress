@@ -6,12 +6,12 @@ if (!defined('ABSPATH')) {
 function coinpal_plugin_admin_callback_page() {
     // 权限检查
     if ( ! current_user_can( 'manage_options' ) ) {
-        wp_die( __( 'You do not have sufficient permissions to access this page.', 'coinpal-payment-gateway2' ) );
+        wp_die( esc_html__( 'You do not have sufficient permissions to access this page.', 'coinpal-payment-gateway2' ) );
     }
 
     // Nonce 校验（确保你在链接或表单中传入了 _wpnonce 参数）
     if ( ! isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( $_GET['_wpnonce'], 'coinpal_admin_action' ) ) {
-        wp_die( __( 'Security check failed.', 'coinpal-payment-gateway2' ) );
+        wp_die( esc_html__( 'Security check failed.', 'coinpal-payment-gateway2' ) );
     }
 
     // 仅处理我们关心的字段
