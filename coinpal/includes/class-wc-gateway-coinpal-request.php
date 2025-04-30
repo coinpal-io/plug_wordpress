@@ -118,10 +118,10 @@ class WC_Gateway_Coinpal_Request {
 			
 			wc_clear_notices();
 
-            /* translators: %s is the response message returned from Coinpal, explaining why the payment failed. */
             $message = sprintf(
+                /* translators: %s is the response message returned from Coinpal, explaining why the payment failed. */
                 __( 'There was a problem processing your payment and the order did not complete. Possible reasons are: %s', 'coinpal-payment-gateway2' ),
-                $datas['respMessage']
+                esc_html( $datas['respMessage'] )
             );
 
             wc_add_notice( $message, 'error' );
@@ -220,8 +220,8 @@ class WC_Gateway_Coinpal_Request {
 			$this->delete_line_items();
 
 			$this->add_line_item( $this->get_order_item_names( $order ), 1, number_format( $order->get_total() - round( $order->get_total_shipping() + $order->get_shipping_tax(), 2 ), 2, '.', '' ), $order->get_order_number() );
-            /* translators: %s is the name of the shipping method (e.g., Flat Rate, Free Shipping). */
             $shipping_label = sprintf(
+            /* translators: %s is the name of the shipping method (e.g., Flat Rate, Free Shipping). */
                 __( 'Shipping via %s', 'coinpal-payment-gateway2' ),
                 ucwords( $order->get_shipping_method() )
             );
@@ -310,8 +310,8 @@ class WC_Gateway_Coinpal_Request {
 
         if ( $order->get_total_shipping() > 0 ) {
 
-            /* translators: %s is the name of the shipping method (e.g., Flat Rate, Free Shipping). */
             $shipping_label = sprintf(
+                /* translators: %s is the name of the shipping method (e.g., Flat Rate, Free Shipping). */
                 __( 'Shipping via %s', 'coinpal-payment-gateway2' ),
                 $order->get_shipping_method()
             );

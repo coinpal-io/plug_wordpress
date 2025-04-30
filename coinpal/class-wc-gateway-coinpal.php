@@ -185,7 +185,8 @@ class WC_Gateway_Coinpal extends WC_Payment_Gateway {
                 'enabled' => array(
                         'title'   => __( 'Enable/Disable', 'coinpal-payment-gateway2' ),
                         'type'    => 'checkbox',
-                        'label'   => sprintf( __( 'Enable %s', 'coinpal-payment-gateway2' ), $method_title ),
+                        /* translators: %s is the payment method title */
+                        'label'   => sprintf( __( 'Enable %s', 'coinpal-payment-gateway2' ), esc_html( $method_title ) ),
                         'default' => 'no'
                 ),
                 'title' => array(

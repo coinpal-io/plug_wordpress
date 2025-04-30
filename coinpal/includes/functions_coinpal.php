@@ -8,10 +8,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 add_action('init', 'coinpal_register_custom_order_statuses');
 function coinpal_register_custom_order_statuses() {
 
-    /* translators: %s is the number of orders with the 'Partial paid' status. */
     $partial_paid_label = __( 'Partial paid', 'coinpal-payment-gateway2' );
     $label_count = _n_noop(
+        /* translators: %s is the number of orders with the 'Partial paid' status. */
         'Partial paid <span class="count">(%s)</span>',
+        /* translators: %s is the number of orders with the 'Partial paid' status. */
         'Partial paid <span class="count">(%s)</span>',
         'coinpal-payment-gateway2'
     );
@@ -206,9 +207,7 @@ function coinpal_add_payment_info_for_partial( $order ) {
 		$order_total = number_format($order->order_total, 8, '.', '');
 		$order_total=$order_total-$balance;
 		$order_total = number_format($order_total, 2, '.', '');
-        $escaped_order_total = esc_html( $order_total );
-
-        echo '<td class="product-balance" colspan="3"><span>Amount unpaid</span>:&nbsp;&nbsp;&nbsp;&nbsp;$'.$escaped_order_total.'</td>
+        echo '<td class="product-balance" colspan="3"><span>Amount unpaid</span>:&nbsp;&nbsp;&nbsp;&nbsp;$'. esc_html( $order_total ).'</td>
 				</tr>
 			</tfoot>
 		</table>';

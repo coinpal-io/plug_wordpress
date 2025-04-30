@@ -269,8 +269,15 @@ class WC_Gateway_Coinpal_Notify_Handler extends WC_Gateway_Coinpal_Response {
 	 * @param  WC_Order $order
 	 */
 	private function payment_status_refunding( $order, $posted ) {
-		$order->update_status( "processing", sprintf( __( "Payment %s via Coinpal Notify.", "coinpal-payment-gateway2" ), strtolower( $posted["status"] ) ) );
 
+		/* translators: %s is the payment status sent by Coinpal Notify */
+		$order->update_status(
+			'processing',
+			sprintf(
+				__( 'Payment %s via Coinpal Notify.', 'coinpal-payment-gateway2' ),
+				esc_html( strtolower( $posted['status'] ) )
+			)
+		);
 		/* translators: %s is the order number. */
 		$subject = sprintf( __( 'Payment for order #%s refunding', 'coinpal-payment-gateway2' ), $order->get_order_number() );
 
