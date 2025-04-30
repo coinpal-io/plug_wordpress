@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+    exit; // Exit if accessed directly
+}
+
 // Register a custom order status
 add_action('init', 'coinpal_register_custom_order_statuses');
 function coinpal_register_custom_order_statuses() {
@@ -10,7 +14,7 @@ function coinpal_register_custom_order_statuses() {
         'exclude_from_search' => false,
         'show_in_admin_all_list' => true,
         'show_in_admin_status_list' => true,
-        'label_count' => _n_noop('Partial paid <span class="count">(%s)</span>', 'Partial paid <span class="count">(%s)</span>')
+        'label_count' => _n_noop('Partial paid <span class="count">(%s)</span>', 'Partial paid <span class="count">(%s)</span>', 'coinpal-payment-gateway2')
     ));
 
 }
@@ -106,10 +110,10 @@ function brain_display_order_data_in_admin_coinpal( $order ){
 		foreach($coinpal_field as $key=>$item){
 			if($key=="paidAddress" && !empty($item) && is_array($item)){
 				echo '<tr>';
-				echo '<td><strong>'.esc_html__( 'paid address' ).':</strong></td>';
+				echo '<td><strong>'.esc_html__( 'paid address', 'coinpal-payment-gateway2').':</strong></td>';
 				echo '<td>';
 				foreach($item as $info){
-					echo '<p>'.$info["address"].'&nbsp;-&nbsp;'.$info["paidCurrency"].'&nbsp;-&nbsp;'.$info["paidAmount"].'</p>';
+					echo '<p>'.esc_html($info["address"]).'&nbsp;-&nbsp;'.esc_html($info["paidCurrency"]).'&nbsp;-&nbsp;'.esc_html($info["paidAmount"]).'</p>';
 				}
 				echo '</td></tr>';
 			}
@@ -160,9 +164,9 @@ function coinpal_add_payment_info_for_partial( $order ) {
                             continue;
                         }
                         echo '<tr>';
-                        echo '<td class="product-time">'.(empty($info["confirmedTime"])?"-":date("Y-m-d H:i:s",$info["confirmedTime"])).'</td>';
-                        echo '<td class="product-quantity">'.(empty($info["paidAmount"])?"-":$info["paidAmount"]).'</td>';
-                        echo '<td class="product-subtotal">'.(empty($info["paidCurrency"])?"-":$info["paidCurrency"]).'</td>';
+                        echo '<td class="product-time">'.(empty($info["confirmedTime"])?"-":esc_html(date("Y-m-d H:i:s",$info["confirmedTime"]))).'</td>';
+                        echo '<td class="product-quantity">'.(empty($info["paidAmount"])?"-":esc_html($info["paidAmount"])).'</td>';
+                        echo '<td class="product-subtotal">'.(empty($info["paidCurrency"])?"-":esc_html($info["paidCurrency"])).'</td>';
                         echo '</td>';
                         echo '</tr>';
                     }

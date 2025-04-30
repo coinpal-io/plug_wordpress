@@ -31,6 +31,8 @@ Click on Coinpal Payment in the left column, click on Related accounts, and afte
 
 This plugin connects to Coinpal services to process cryptocurrency payments and manage merchant account authorizations.
 
+This service is provided by "PRT Weather INC": [terms of use](https://www.coinpal.io/terms.html), [privacy policy](https://www.coinpal.io/complaints-policy.html).
+
 The following services are used:
 
 1. Coinpal Payment Gateway

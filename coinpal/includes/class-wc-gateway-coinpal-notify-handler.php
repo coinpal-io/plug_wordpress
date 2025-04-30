@@ -32,16 +32,15 @@ class WC_Gateway_Coinpal_Notify_Handler extends WC_Gateway_Coinpal_Response {
 		header('HTTP/1.1 200 OK');
 		
 		if ( ! empty( $_POST ) && $this->validate_notify() ) {
-			$posted = wp_unslash( $_POST );
-			$cleaned_post = [];
-			foreach ($posted as $key => $value) {
-				if (is_array($value)) {
-					$cleaned_post[$key] = array_map('sanitize_text_field', $value);
-				} else {
-					$cleaned_post[$key] = sanitize_text_field($value);
-				}
-			}
-			$posted = $cleaned_post;
+			$posted = array_map(
+				function ( $value ) {
+					if ( is_array( $value ) ) {
+						return array_map( 'sanitize_text_field', $value );
+					}
+					return sanitize_text_field( $value );
+				},
+				wp_unslash( $_POST )
+			);
 			do_action( "valid-coinpal-notify", $posted );
 			exit;
 		}
@@ -92,15 +91,13 @@ class WC_Gateway_Coinpal_Notify_Handler extends WC_Gateway_Coinpal_Response {
 		);
 
 		$cleaned_post = [];
-		foreach ($_POST as $key => $value) {
-			if (is_array($value)) {
-				$cleaned_post[$key] = array_map('sanitize_text_field', $value);
-			} else {
-				$cleaned_post[$key] = sanitize_text_field($value);
-			}
-		}
+		$cleaned_post['requestId']     = isset($_POST['requestId']) ? sanitize_text_field($_POST['requestId']) : '';
+		$cleaned_post['merchantNo']    = isset($_POST['merchantNo']) ? sanitize_text_field($_POST['merchantNo']) : '';
+		$cleaned_post['orderNo']       = isset($_POST['orderNo']) ? sanitize_text_field($_POST['orderNo']) : '';
+		$cleaned_post['orderAmount']   = isset($_POST['orderAmount']) ? $_POST['orderAmount'] : 0;
+		$cleaned_post['orderCurrency'] = isset($_POST['orderCurrency']) ? sanitize_text_field($_POST['orderCurrency']) : '';
+		$cleaned_post['sign']          = isset($_POST['sign']) ? $_POST['sign'] : '';
 		$valid = $this->validatePSNSIGN($cleaned_post, $check_array);
-		
 
 		if($valid){
 			WC_Gateway_Coinpal::log( "Received valid response from Coinpal , notify:".json_encode($cleaned_post));

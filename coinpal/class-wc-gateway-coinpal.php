@@ -281,7 +281,7 @@ class WC_Gateway_Coinpal extends WC_Payment_Gateway {
 	
 		echo '<p>' . esc_html__('Thank you for your order, please click the button below to pay with Coinpal.', 'coinpal-payment-gateway2'). '</p>';
 	
-		echo $this->generate_coinpal_form( $order );
+		echo wp_kses_post($this->generate_coinpal_form( $order ));
 	}
 
 
@@ -331,7 +331,7 @@ class WC_Gateway_Coinpal extends WC_Payment_Gateway {
         list($rand,$text) = explode('.', $text, 2);
         $rand = base64_decode($rand);
         $count = substr($rand, 1);
-        $rand = $rand{0};
+        $rand = $rand[0];
         $key = hash('sha256', $salt.$key.$rand);
         $text = base64_decode($text);
         $result = '';

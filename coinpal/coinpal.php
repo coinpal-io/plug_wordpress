@@ -10,6 +10,11 @@ Author URI: https://www.coinpal.io
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
+}
+
 add_action('plugins_loaded', 'coinpal_init_gateway', 0);
 
 if ( !defined( 'COINPAL_CPWC_PLUGIN_FILE' ) ) {
