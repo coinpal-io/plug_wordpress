@@ -97,8 +97,8 @@ function coinpal_custom_status_valid_for_payment( $statuses, $order ) {
 }
 
 //Custom fields for order details display for admin
-add_action( 'woocommerce_admin_order_data_after_order_details', 'brain_display_order_data_in_admin_coinpal' );
-function brain_display_order_data_in_admin_coinpal( $order ){  
+add_action( 'woocommerce_admin_order_data_after_order_details', 'coinpal_payment_brain_display_order_data_in_admin' );
+function coinpal_payment_brain_display_order_data_in_admin( $order ){
 	$coinpal_field=$order->get_meta('coinpal_field');
 	$coinpal_field=json_decode($coinpal_field,true);
 	if(!empty($coinpal_field)){
@@ -126,8 +126,8 @@ function brain_display_order_data_in_admin_coinpal( $order ){
 }
 
 //when admin payment_complete then order send email
-add_action('woocommerce_order_status_changed', 'order_status_changed_coinpal', 99, 4);
-function order_status_changed_coinpal($order_id, $old_status, $new_status, $order_object)
+add_action('woocommerce_order_status_changed', 'coinpal_payment_order_status_changed', 99, 4);
+function coinpal_payment_order_status_changed($order_id, $old_status, $new_status, $order_object)
 {
     if($new_status=="processing"){
         $order = wc_get_order($order_id);
@@ -231,7 +231,7 @@ function coinpal_add_payment_button_for_partial_order_iceriver2( $order ) {
 //Add partialpaid to allow payment
 function coinpal_custom_order_needs_payment( $needs_payment, $order ) {
     // Get the valid order statuses for payment
-    $valid_statuses = apply_filters( 'woocommerce_valid_order_statuses_for_payment', array( 'pending', 'failed' ,'partialpaid'), $order );
+    $valid_statuses = apply_filters( 'coinpal_woocommerce_valid_order_statuses_for_payment', array( 'pending', 'failed' ,'partialpaid'), $order );
 
     // Check if the order status is valid for payment
     if ( in_array( $order->get_status(), $valid_statuses ) ) {

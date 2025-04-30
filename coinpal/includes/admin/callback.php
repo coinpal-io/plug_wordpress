@@ -24,9 +24,9 @@ function coinpal_plugin_admin_callback_page() {
 
         if ( is_array( $key_data ) && ! empty( $key_data ) ) {
             // 启用支付网关
-            $options = get_option( 'woocommerce_coinpal_settings', [] );
+            $options = get_option( 'coinpal_payment_woocommerce_settings', [] );
             $options['enabled'] = 'yes';
-            update_option( 'woocommerce_coinpal_settings', $options );
+            update_option( 'coinpal_payment_woocommerce_settings', $options );
 
             // 更新 API Key 和 Secret
             if ( ! empty( $key_data['merId'] ) ) {

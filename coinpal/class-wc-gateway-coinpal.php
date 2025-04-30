@@ -41,7 +41,7 @@ class WC_Gateway_Coinpal extends WC_Payment_Gateway {
 		$this->pm = substr($class_name, $index + 1);
 		
 		$this->id                 = strtolower($this->is_channel ? 'coinpal-' . $this->pm : $this->pm);
-		$this->icon               = apply_filters( 'woocommerce_' . $this->pm . '_icon', plugins_url( 'assets/images/Coinpal.png', __FILE__ ) );
+		$this->icon               = apply_filters( 'coinpal-payment-woocommerce_' . $this->pm . '_icon', plugins_url( 'assets/images/Coinpal.png', __FILE__ ) );
 		$this->has_fields         = false;
 		$this->order_button_text  = __( 'Continue to Payment', 'coinpal-payment-gateway2' );
 		$this->method_title       = ($this->pm_id ? 'Virtual Currency ' : '') . $this->getMethodTitle();

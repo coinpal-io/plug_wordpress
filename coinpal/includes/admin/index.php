@@ -13,7 +13,7 @@ function coinpal_admin_assets($hook) {
     wp_enqueue_style('bootstrap-css', plugin_dir_url(__FILE__) . '../../assets/css/bootstrap.min.css');
 
     // 引入自定义样式（可选）
-    wp_enqueue_style('my-plugin-admin-css', plugin_dir_url(__FILE__) . 'admin-style.css');
+    wp_enqueue_style('coinapl-payment-plugin-admin-css', plugin_dir_url(__FILE__) . 'admin-style.css');
 
     // 引入 jQuery（WordPress 已内置，无需手动引入）
     // 引入 Bootstrap JS

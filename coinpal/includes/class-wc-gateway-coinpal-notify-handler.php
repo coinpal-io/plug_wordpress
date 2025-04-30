@@ -16,7 +16,7 @@ class WC_Gateway_Coinpal_Notify_Handler extends WC_Gateway_Coinpal_Response {
 	 */
 	public function __construct( $sandbox = false) {
 		add_action( "woocommerce_api_wc_gateway_coinpal", array( $this, "check_response" ) );
-		add_action( "valid-coinpal-notify", array( $this, "valid_response" ) );
+		add_action( "coinpal-payment-valid-notify", array( $this, "valid_response" ) );
 
 		$this->sandbox        = $sandbox;
 		
@@ -41,7 +41,7 @@ class WC_Gateway_Coinpal_Notify_Handler extends WC_Gateway_Coinpal_Response {
 				},
 				wp_unslash( $_POST )
 			);
-			do_action( "valid-coinpal-notify", $posted );
+			do_action( "coinpal-payment-valid-notify", $posted );
 			exit;
 		}
 

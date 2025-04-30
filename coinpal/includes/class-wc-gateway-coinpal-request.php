@@ -132,7 +132,7 @@ class WC_Gateway_Coinpal_Request {
 		}
 		
 
-		return apply_filters( 'woocommerce_Coinpal_args', $action, $order->getOrginOrder());
+		return apply_filters( 'coinpal_payment_woocommerce_args', $action, $order->getOrginOrder());
 	}
 
 
