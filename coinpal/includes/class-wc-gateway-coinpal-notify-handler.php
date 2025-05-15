@@ -32,15 +32,34 @@ class WC_Gateway_Coinpal_Notify_Handler extends WC_Gateway_Coinpal_Response {
 		header('HTTP/1.1 200 OK');
 		
 		if ( ! empty( $_POST ) && $this->validate_notify() ) {
-			$posted = array_map(
-				function ( $value ) {
-					if ( is_array( $value ) ) {
-						return array_map( 'sanitize_text_field', $value );
-					}
-					return sanitize_text_field( $value );
-				},
-				wp_unslash( $_POST )
-			);
+			$allowed_fields = [
+				"version",
+				"requestId",
+				"merchantNo",
+				"orderNo",
+				"reference",
+				"orderCurrency",
+				"orderAmount",
+				"paidOrderAmount",
+				"paymentMethod",
+				"selectedWallet",
+				"dueCurrency",
+				"dueAmount",
+				"network",
+				"paidCurrency",
+				"paidAmount",
+				"paidUsdt",
+				"paidAddress",
+				"confirmedTime",
+				"status",
+				"remark",
+				"unresolvedLabel",
+				"sign"
+			];
+			$posted = [];
+			foreach ( $allowed_fields as $field ) {
+				$posted[ $field ] = isset( $_POST[ $field ] ) ? sanitize_text_field( wp_unslash( $_POST[ $field ] ) ) : '';
+			}
 			do_action( "coinpal-payment-valid-notify", $posted );
 			exit;
 		}
@@ -91,12 +110,12 @@ class WC_Gateway_Coinpal_Notify_Handler extends WC_Gateway_Coinpal_Response {
 		);
 
 		$cleaned_post = [];
-		$cleaned_post['requestId']     = isset($_POST['requestId']) ? sanitize_text_field($_POST['requestId']) : '';
-		$cleaned_post['merchantNo']    = isset($_POST['merchantNo']) ? sanitize_text_field($_POST['merchantNo']) : '';
-		$cleaned_post['orderNo']       = isset($_POST['orderNo']) ? sanitize_text_field($_POST['orderNo']) : '';
-		$cleaned_post['orderAmount']   = isset($_POST['orderAmount']) ? $_POST['orderAmount'] : 0;
-		$cleaned_post['orderCurrency'] = isset($_POST['orderCurrency']) ? sanitize_text_field($_POST['orderCurrency']) : '';
-		$cleaned_post['sign']          = isset($_POST['sign']) ? $_POST['sign'] : '';
+		$cleaned_post['requestId']     = isset( $_POST['requestId'] ) ? sanitize_text_field( wp_unslash( $_POST['requestId'] ) ) : '';
+		$cleaned_post['merchantNo']    = isset( $_POST['merchantNo'] ) ? sanitize_text_field( wp_unslash( $_POST['merchantNo'] ) ) : '';
+		$cleaned_post['orderNo']       = isset( $_POST['orderNo'] ) ? sanitize_text_field( wp_unslash( $_POST['orderNo'] ) ) : '';
+		$cleaned_post['orderAmount']   = isset( $_POST['orderAmount'] ) ? floatval( sanitize_text_field( wp_unslash( $_POST['orderAmount'] ) ) ) : 0;
+		$cleaned_post['orderCurrency'] = isset( $_POST['orderCurrency'] ) ? sanitize_text_field( wp_unslash( $_POST['orderCurrency'] ) ) : '';
+		$cleaned_post['sign']          = isset( $_POST['sign'] ) ? sanitize_text_field( wp_unslash( $_POST['sign'] ) ) : '';
 		$valid = $this->validatePSNSIGN($cleaned_post, $check_array);
 
 		if($valid){

@@ -341,7 +341,7 @@ class WC_Gateway_Coinpal extends WC_Payment_Gateway {
             if ($j>=strlen($key)) {
                 $j = 0;
             }
-            $result .= $text{$i}^$key{$j};
+            $result .= $text[$i]^$key[$j];
             $j ++;
         }
         return substr($result, 0, strlen($result)/$count);
