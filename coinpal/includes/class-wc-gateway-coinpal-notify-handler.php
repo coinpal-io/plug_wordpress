@@ -113,7 +113,7 @@ class WC_Gateway_Coinpal_Notify_Handler extends WC_Gateway_Coinpal_Response {
 		$cleaned_post['requestId']     = isset( $_POST['requestId'] ) ? sanitize_text_field( wp_unslash( $_POST['requestId'] ) ) : '';
 		$cleaned_post['merchantNo']    = isset( $_POST['merchantNo'] ) ? sanitize_text_field( wp_unslash( $_POST['merchantNo'] ) ) : '';
 		$cleaned_post['orderNo']       = isset( $_POST['orderNo'] ) ? sanitize_text_field( wp_unslash( $_POST['orderNo'] ) ) : '';
-		$cleaned_post['orderAmount']   = isset( $_POST['orderAmount'] ) ? floatval( sanitize_text_field( wp_unslash( $_POST['orderAmount'] ) ) ) : 0;
+		$cleaned_post['orderAmount']   = isset( $_POST['orderAmount'] ) ? sanitize_text_field( wp_unslash( $_POST['orderAmount'] ) )  : 0;
 		$cleaned_post['orderCurrency'] = isset( $_POST['orderCurrency'] ) ? sanitize_text_field( wp_unslash( $_POST['orderCurrency'] ) ) : '';
 		$cleaned_post['sign']          = isset( $_POST['sign'] ) ? sanitize_text_field( wp_unslash( $_POST['sign'] ) ) : '';
 		$valid = $this->validatePSNSIGN($cleaned_post, $check_array);
@@ -290,13 +290,7 @@ class WC_Gateway_Coinpal_Notify_Handler extends WC_Gateway_Coinpal_Response {
 	private function payment_status_refunding( $order, $posted ) {
 
 		/* translators: %s is the payment status sent by Coinpal Notify */
-		$order->update_status(
-			'processing',
-			sprintf(
-				__( 'Payment %s via Coinpal Notify.', 'coinpal-payment-gateway2' ),
-				esc_html( strtolower( $posted['status'] ) )
-			)
-		);
+		$order->update_status('processing', sprintf(__( 'Payment %s via Coinpal Notify.', 'coinpal-payment-gateway2' ), esc_html( strtolower( $posted['status'] ) )));
 		/* translators: %s is the order number. */
 		$subject = sprintf( __( 'Payment for order #%s refunding', 'coinpal-payment-gateway2' ), $order->get_order_number() );
 

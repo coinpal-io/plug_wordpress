@@ -9,14 +9,8 @@ add_action('init', 'coinpal_register_custom_order_statuses');
 function coinpal_register_custom_order_statuses() {
 
     $partial_paid_label = __( 'Partial paid', 'coinpal-payment-gateway2' );
-    $label_count = _n_noop(
-        /* translators: %s is the number of orders with the 'Partial paid' status. */
-        'Partial paid <span class="count">(%s)</span>',
-        /* translators: %s is the number of orders with the 'Partial paid' status. */
-        'Partial paid <span class="count">(%s)</span>',
-        'coinpal-payment-gateway2'
-    );
-
+    /* translators: %s is the number of orders with the 'Partial paid' status */
+    $label_count = _n_noop('Partial paid <span class="count">(%s)</span>', 'Partial paid <span class="count">(%s)</span>', 'coinpal-payment-gateway2');
     register_post_status( 'wc-partialpaid', array(
         'label'                     => $partial_paid_label,
         'public'                    => true,
