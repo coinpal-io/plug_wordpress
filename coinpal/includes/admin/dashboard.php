@@ -27,8 +27,14 @@ function coinpal_plugin_admin_page() {
                 </div>
             <?php else: ?>
             <?php
-                $redirect_uri = urlencode(admin_url('admin.php?page=coinpal-callback'));
+//                $redirect_uri = urlencode(admin_url('admin.php?page=coinpal-callback'));
+                $redirect_uri = wp_nonce_url(
+                    admin_url( 'admin.php?page=coinpal-callback' ),
+                    'coinpal_admin_action'
+                );
+                $redirect_uri = urlencode($redirect_uri);
                 $auth_url = "https://portal.coinpal.io/#/authorize?redirect_uri={$redirect_uri}&response_type=code";
+
                 ?>
                 <!-- 未关联账户，显示关联按钮 -->
                 <div class="jumbotron">
