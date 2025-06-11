@@ -15,11 +15,11 @@
 1.  Install "Coinpal Payment Gateway" plugin
 
     Log in to your WordPress admin dashboard.
-    ﻿
+      ﻿
     From the left-hand menu, go to Plugins → Add New.
-    ﻿
+    
     In the search bar at the top right, type "Coinpal Payment Gateway".
-    ﻿
+    
     Once the plugin appears in the search results, click "Install Now".
     ﻿
     After the installation is complete, click "Activate" to enable the plugin.
@@ -33,20 +33,24 @@
     Navigate to your WordPress admin dashboard.
     
     Go to Coinpal Payment → Related accounts.
-    ﻿
+    
     Click the "Sign In" button to begin the authorization process.
     ﻿
     In the popup window, click "Authorize" to link your Coinpal account.
-    ﻿
+    
     Upon successful authorization, you will see the confirmation message: "Your account has been successfully linked."
-
+    
 ![](./img/auth1.png)
+
 
 ![](./img/auth2.png)
 
+
 ![](./img/auth3.png)
 
+
 ![](./img/auth4.png)
+
 
 ## Step 3: Testing your Coinpal WooCommerce Integration.
 
