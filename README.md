@@ -1,16 +1,6 @@
 # WooCommerce Coinpal Checkout Installation
 
-## Step 1: Log in to the Coinpal Admin Dashboard to get the Merchant Number and Secret Key.
-1. [Register](https://portal.coinpal.io/#/admin/register)/[login](https://portal.coinpal.io/#/admin/login) and go to Coinpal's Admin Dashboard 
-
-![](./img/register.png)
-
-2. Follow the Dashboard guidelines to fill in the relevant information
-![](./img/kyb.png)
-3. Click the 'Integration' button in the lower left corner to get the corresponding Merchant Id and Secret Key
-![](./img/api-key.png)
-
-## Step 2: Installing the CoinPal Plugin on your Wordpress Site.
+## Step 1: Installing the CoinPal Plugin on your Wordpress Site.
 
 Note: Before installing the "Coinpal Payment Gateway", please ensure that WooCommerce is installed and activated.
 If it is not yet installed, follow the same steps below to search for "WooCommerce", then click Install Now and Activate.
@@ -55,7 +45,7 @@ If it is not yet installed, follow the same steps below to search for "WooCommer
 ![](./img/auth4.png)
 
 
-## Step 3: Testing your Coinpal WooCommerce Integration.
+## Step 2: Testing your Coinpal WooCommerce Integration.
 
 To confirm your Integration is properly working create a test order:
 
@@ -75,7 +65,7 @@ If you like you can now proceed to making a test payment.
 
 ![](./img/wp-checkout.png)
 
-## Step 4: Marking a Payment as Received on WooCommerce.
+## Step 3: Marking a Payment as Received on WooCommerce.
 
 Login to your Wordpress Admin Dashboard.
 
