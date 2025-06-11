@@ -12,6 +12,9 @@
 
 ## Step 2: Installing the CoinPal Plugin on your Wordpress Site.
 
+Note: Before installing the "Coinpal Payment Gateway", please ensure that WooCommerce is installed and activated.
+If it is not yet installed, follow the same steps below to search for "WooCommerce", then click Install Now and Activate.
+
 1.  Install "Coinpal Payment Gateway" plugin
 
     Log in to your WordPress admin dashboard.
