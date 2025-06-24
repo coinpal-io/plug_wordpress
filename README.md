@@ -1,5 +1,7 @@
 # WooCommerce Coinpal Checkout Installation
 
+> ⚠ To ensure successful transactions, please go to the [Merchant Dashboard](https://portal.coinpal.io/#/admin/login) → My Account → My Store, and add the current website domain.If the domain is not added, the system will reject any transaction requests originating from it.
+
 ## Step 1: Installing the CoinPal Plugin on your Wordpress Site.
 
 Note: Before installing the "Coinpal Payment Gateway", please ensure that WooCommerce is installed and activated.
