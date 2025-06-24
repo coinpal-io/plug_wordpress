@@ -10,13 +10,13 @@ If it is not yet installed, follow the same steps below to search for "WooCommer
 1.  Install "Coinpal Payment Gateway" plugin
 
     Log in to your WordPress admin dashboard.
-      ﻿
+    
     From the left-hand menu, go to Plugins → Add New.
     
     In the search bar at the top right, type "Coinpal Payment Gateway".
     
     Once the plugin appears in the search results, click "Install Now".
-    ﻿
+    
     After the installation is complete, click "Activate" to enable the plugin.
     
 ![](./img/plug1.png)
@@ -30,7 +30,7 @@ If it is not yet installed, follow the same steps below to search for "WooCommer
     Go to Coinpal Payment → Related accounts.
     
     Click the "Sign In" button to begin the authorization process.
-    ﻿
+    
     In the popup window, click "Authorize" to link your Coinpal account.
     
     Upon successful authorization, you will see the confirmation message: "Your account has been successfully linked."
