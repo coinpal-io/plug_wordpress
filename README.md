@@ -27,7 +27,7 @@ If it is not yet installed, follow the same steps below to search for "WooCommer
 
     Navigate to your WordPress admin dashboard.
     
-    Go to Coinpal Payment → Related accounts.
+    Go to Coinpal Payment → Link Accounts.
     
     Click the "Sign In" button to begin the authorization process.
     
