@@ -4,16 +4,16 @@
 
 ## Step 1: Installing the CoinPal Plugin on your Wordpress Site.
 
-Note: Before installing the "Coinpal Payment Gateway", please ensure that WooCommerce is installed and activated.
+Note: Before installing the "Coinpal - Crypto Payment Gateway", please ensure that WooCommerce is installed and activated.
 If it is not yet installed, follow the same steps below to search for "WooCommerce", then click Install Now and Activate.
 
-1.  Install "Coinpal Payment Gateway" plugin
+1.  Install "Coinpal - Crypto Payment Gateway" plugin
 
     Log in to your WordPress admin dashboard.
     
     From the left-hand menu, go to Plugins → Add New.
     
-    In the search bar at the top right, type "Coinpal Payment Gateway".
+    In the search bar at the top right, type "Coinpal - Crypto Payment Gateway".
     
     Once the plugin appears in the search results, click "Install Now".
     
@@ -47,23 +47,19 @@ If it is not yet installed, follow the same steps below to search for "WooCommer
 ![](./img/auth4.png)
 
 
-## Step 2: Testing your Coinpal WooCommerce Integration.
+## Step 2: Testing your CoinPal WooCommerce Integration.
 
 To confirm your Integration is properly working create a test order:
 
 Add a test item to your shopping cart and view the cart.
 
-Proceed to Checkout
+Proceed to Checkout.
 
-Select Coinpal as the Payment Method.
+Select CoinPal as the Payment Method.
 
-Click Place Order
+Click Place Order.
 
-Click the “Continue to Payment” button.
-
-Verify all of the Wallet Addresses and Order info, and make sure the Validation Tests all have a Green Check Mark.
-
-If you like you can now proceed to making a test payment.
+Click the "Continue to Payment" button.
 
 ![](./img/wp-checkout.png)
 
@@ -73,13 +69,13 @@ Login to your Wordpress Admin Dashboard.
 
 Go to the WooCommerce Section and Click Orders.
 
-You will see the test orders marked as “Paid”.
+You will see the test orders marked as "Paid".
 
 Check whether coins are settled to the CoinPal wallet.
 
 You may also use a Block Explorer to verify if the transaction was processed.
 
-After the verification of the above steps is completed, it means that the connection with Coinpal is successful.
+After the verification of the above steps is completed, it means that the connection with CoinPal is successful.
 
 
 
